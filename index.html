@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Келейный молитвенник Евгений | Духовная помощь и молитва</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta name="description" content="Келейная молитва за здоровье, бизнес, решение сложных жизненных ситуаций. Анонимно. Без осуждения. Добровольные пожертвования.">
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #2b2b2b;
+            --text-secondary: #555555;
+            --accent: #1a1a1a;
+            --border: #e5e5e5;
+            --light-bg: #f9f9f9;
+            --font-serif: 'Georgia', 'Times New Roman', serif;
+            --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; overflow-x: hidden; }
+        
+        body {
+            font-family: var(--font-serif);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            font-size: 18px;
+            overflow-x: hidden;
+        }
+
+        img { max-width: 100%; height: auto; }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 { font-weight: 400; letter-spacing: 0.5px; color: var(--accent); }
+        h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; margin-bottom: 20px; }
+        h2 { font-size: clamp(1.6rem, 4vw, 2.2rem); text-align: center; margin-bottom: 50px; position: relative; padding-bottom: 20px; }
+        h2::after { content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 60px; height: 2px; background: var(--accent); }
+        h3 { font-size: 1.3rem; margin-bottom: 12px; }
+        p { margin-bottom: 18px; color: var(--text-secondary); }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+
+        .reveal { opacity: 0; transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+        .reveal.from-left { transform: translateX(-60px); }
+        .reveal.from-right { transform: translateX(60px); }
+        .reveal.from-bottom { transform: translateY(40px); }
+        .reveal.active { opacity: 1; transform: translate(0); }
+
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border); padding: 15px 0;
+        }
+        .nav-wrap { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; max-width: 100%; }
+        .logo {
+            font-size: 1.1rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            flex: 1 1 auto;
+            min-width: 0;
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+        .nav-links { display: flex; gap: 30px; list-style: none; }
+        .nav-links a { font-family: var(--font-sans); font-size: 0.9rem; color: var(--text-secondary); }
+        .nav-links a:hover { color: var(--accent); }
+        .burger {
+            display: none;
+            flex: 0 0 auto;
+            width: 40px;
+            height: 40px;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .hero { padding: 160px 0 100px; text-align: center; background: var(--light-bg); border-bottom: 1px solid var(--border); }
+        .hero-sub { font-size: 1.2rem; font-style: italic; color: var(--text-secondary); margin-bottom: 30px; }
+        .hero-desc { max-width: 650px; margin: 0 auto; font-size: 1.1rem; }
+
+        section { padding: 90px 0; border-bottom: 1px solid var(--border); }
+        section:nth-child(even) { background: var(--light-bg); }
+
+        .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 50px; align-items: start; }
+        .about-img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            border: 1px solid var(--border);
+            display: block;
+            object-fit: cover;
+            object-position: center;
+            filter: grayscale(15%);
+            transition: filter 0.4s ease;
+        }
+        .about-img:hover { filter: grayscale(0%); }
+
+        .quote-card { background: var(--bg-color); border-left: 3px solid var(--accent); padding: 30px 35px; margin-bottom: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
+        .quote-text { font-style: italic; font-size: 1.15rem; color: var(--text-main); margin-bottom: 10px; line-height: 1.8; }
+        .quote-src { font-family: var(--font-sans); font-size: 0.85rem; color: #888; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 25px; }
+        .service-card { background: var(--bg-color); padding: 35px; border: 1px solid var(--border); transition: 0.3s; }
+        .service-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.05); }
+
+        .donation-intro { text-align: center; max-width: 700px; margin: 0 auto 50px; }
+        .btn { display: inline-block; background: var(--accent); color: #fff; padding: 12px 30px; font-family: var(--font-sans); font-size: 0.9rem; font-weight: 600; border: none; cursor: pointer; transition: 0.3s; }
+        .btn:hover { background: #333; }
+        .requisites { background: var(--bg-color); border: 1px solid var(--border); padding: 35px; margin-top: 30px; }
+        .req-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 20px; margin-top: 20px; }
+        .req-item strong { display: block; margin-bottom: 5px; color: var(--accent); font-family: var(--font-sans); font-size: 0.95rem; }
+        .req-item span { font-family: monospace; font-size: 0.95rem; color: var(--text-secondary); word-break: break-all; }
+
+        .form-wrap { max-width: 600px; margin: 0 auto; background: var(--bg-color); padding: 40px; border: 1px solid var(--border); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 6px; font-family: var(--font-sans); font-size: 0.9rem; color: var(--accent); }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; max-width: 100%; padding: 12px 15px; border: 1px solid var(--border); background: var(--light-bg); font-family: var(--font-serif); font-size: 1rem; color: var(--text-main); outline: none; transition: 0.3s; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); background: #fff; }
+        .form-group textarea { min-height: 150px; resize: vertical; }
+
+        .faq-item { border: 1px solid var(--border); margin-bottom: 10px; background: var(--bg-color); }
+        .faq-q { padding: 20px 25px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; transition: 0.3s; }
+        .faq-q:hover { background: var(--light-bg); }
+        .faq-icon { font-size: 1.3rem; transition: 0.3s; flex-shrink: 0; margin-left: 15px; }
+        .faq-item.open .faq-icon { transform: rotate(45deg); }
+        .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .faq-a-inner { padding: 0 25px 20px; color: var(--text-secondary); font-size: 0.95rem; line-height: 1.8; }
+
+        .contacts-section { text-align: center; }
+        .contact-links { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .contact-link { display: inline-block; padding: 14px 30px; border: 1px solid var(--border); font-family: var(--font-sans); font-size: 0.9rem; transition: 0.3s; }
+        .contact-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+        footer { background: var(--accent); color: #999; padding: 40px 0; text-align: center; font-family: var(--font-sans); font-size: 0.8rem; }
+        .disclaimer { max-width: 600px; margin: 15px auto 0; color: #666; line-height: 1.6; }
+
+        .to-top { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; background: var(--accent); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; opacity: 0; visibility: hidden; transition: 0.3s; z-index: 99; display: flex; align-items: center; justify-content: center; }
+        .to-top.show { opacity: 1; visibility: visible; }
+        .to-top:hover { background: #333; }
+
+        .modal-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-bg.open { display: flex; }
+        .modal-box { background: #fff; padding: 50px 40px; max-width: 450px; width: 100%; text-align: center; border: 2px solid var(--accent); }
+        .modal-box h3 { margin-bottom: 15px; }
+        .modal-box p { margin-bottom: 25px; }
+
+        @media (max-width: 1024px) {
+            .burger { display: flex; }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: #fff;
+                flex-direction: column;
+                align-items: flex-end;
+                text-align: right;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 1px solid var(--border);
+            }
+            .nav-links.open { display: flex; }
+            .nav-links a { font-size: 1.35rem; }
+            .about-grid { grid-template-columns: 1fr; }
+            .about-img { max-width: 320px; margin: 0 auto; }
+            .hero { padding: 130px 0 70px; }
+            section { padding: 60px 0; }
+            .form-wrap { padding: 25px; }
+            .modal-box { padding: 35px 25px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container nav-wrap">
+        <a href="#" class="logo">Келейный Молитвенник Евгений </a>
+        <div class="burger" onclick="this.nextElementSibling.classList.toggle('open')">☰</div>
+        <ul class="nav-links">
+            <li><a href="#about">Обо мне</a></li>
+            <li><a href="#services">За кого молюсь</a></li>
+            <li><a href="#donation">Пожертвовать</a></li>
+            <li><a href="#form">Обратиться</a></li>
+            <li><a href="#faq">Вопросы</a></li>
+            <li><a href="#quotes">Писание</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1 class="reveal from-bottom">Келейный молитвенник Евгений </h1>
+        <p class="hero-sub reveal from-bottom">Молитва за тех, кто нуждается в помощи свыше</p>
+        <p class="hero-desc reveal from-bottom">
+            Принимаю добровольные пожертвования и молюсь за ваши нужды. 
+            За прощение грехов и исправление ошибок, за здоровье и удачу, за бизнес и семью. И за многое другое. 
+            Каждый достоин милости. Без осуждения. Без условий. Только искренняя молитва.
+        </p>
+    </div>
+</section>
+
+<section id="about">
+    <div class="container">
+        <h2 class="reveal from-bottom">Обо мне </h2>
+        <div class="about-grid">
+            <img src="evgenii.jpg" alt="Келейный молитвенник Евгений" class="about-img reveal from-left" onerror="this.style.background='#eee';this.alt='Фото не найдено (evgenii.jpg)';this.style.display='flex';this.style.alignItems='center';this.style.justifyContent='center';this.style.color='#aaa';this.style.fontSize='0.9rem';this.removeAttribute('src');">
+            <div class="reveal from-right">
+                <h3>Мой путь</h3>
+                <p>Более пятнадцати лет я посвятил себя келейной молитве и духовной практике. В уединении своей кельи я обращаюсь к Богу и святым Его за помощью тем, кто потерял дорогу, запутался в грехах или столкнулся с непреодолимыми трудностями.</p>
+                <p>Ко мне обращаются люди разных судеб: предприниматели с нечистой совестью, бизнесмены на грани закона, обычные люди в беде. Я не задаю вопросов о морали. Моя задача — молиться искренне, глубоко, до последнего вздоха.</p>
+                <p>Это не торговля святыней. Это духовное служение, которое требует материальной поддержки. Ваши пожертвования позволяют мне продолжать это моё малое молитвенное служение, жить в уединении и посвящать время молитве за каждого, кто ко мне обратился.</p>
+                <p>Я верю, что искренняя молитва способна изменить судьбу. Не мгновенно, не волшебным образом, но через очищение, через изменение судьбы, через открытие новых путей там, где раньше была стена. 
+<br>
+Иногда помощь приходит внезапно и таинственным образом откуда не ждёшь. 
+</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="services">
+    <div class="container">
+        <h2 class="reveal from-bottom">За кого я молюсь</h2>
+        <div class="services-grid">
+            <div class="service-card reveal from-left">
+                <h3>Бизнес и предпринимательство</h3>
+                <p>Успех в делах, защита от конкурентов, мудрость в решениях, удача в сделках, очищение от нечестных доходов. Стартапы и новые начинания. </p>
+            </div>
+            <div class="service-card reveal from-right">
+                <h3>Проблемы с законом</h3>
+                <p>
+Чтобы избежать уголовной ответственности. О назначении минимального наказания. <br>
+За чиновников и бизнесменов, за простых людей. <br>
+Смягчение участи, защита от несправедливости, очищение совести, возможность начать заново.</p>
+            </div>
+            <div class="service-card reveal from-left">
+                <h3>Здоровье</h3>
+                <p>Исцеление себя и близких, укрепление духа во время болезни, поиск врачей, внутренняя сила.</p>
+            </div>
+            <div class="service-card reveal from-right">
+                <h3>Удача и защита</h3>
+                <p>
+Молюсь об удаче брокеров, трейдеров, криптанов, игроков, спортсменов, студентов, бизнесменов и всех, кому нужна удача. 
+<br>
+
+ Удача в учёбе, бизнесе, в делах и семье, работе и жизни. Просто удача. 
+<br>
+Общий покровительствующий молитвенный щит, удача в начинаниях, защита от зависти и негатива, финансовый поток.
+
+</p>
+            </div>
+            <div class="service-card reveal from-left">
+                <h3>Личные кризисы</h3>
+                <p>Выход из депрессии, разрешение конфликтов, прощение обид, внутренний душевный покой.</p>
+            </div>
+            <div class="service-card reveal from-right">
+                <h3>Семья и супружество</h3>
+                <p>Молюсь об обретении супруга, супруги, о создании и сохранении семьи, о даровании детей, о детях, здоровье детей, об учёбе и всё, что связано с семьёй.</p>
+            </div>
+            <div class="service-card reveal from-right">
+                <h3>Индивидуальные просьбы</h3>
+                <p>Нет стандартных шаблонов. Каждая ситуация уникальна. Напишите, и мы обсудим вашу потребность.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="donation">
+    <div class="container">
+        <h2 class="reveal from-bottom">Поддержать молитву</h2>
+        <p class="donation-intro reveal from-bottom">
+            Молитва не продается. Но молитва требует времени, энергии и ресурсов. 
+            Ваше пожертвование — это благодарность и возможность продолжать молитвенную помощь. 
+            Чем больше сумма пожертвовагий, тем глубже и дольше я могу молиться за вас, больше уделять времени молитве. 
+<br>
+Суммы пожертвований указаны ориентировочно и не являются обязательными. Жертвуйте от души. Жертвуйте столько, сколько подскажет вам ваша душа. 
+        </p>
+        
+        <div class="requisites reveal from-bottom" id="requisites">
+            <h3>Реквизиты для перевода</h3>
+            <div class="req-grid">
+    <div class="req-item"><strong>ВТБ (карта):</strong><span style="cursor:pointer;" title="Нажмите, чтобы скопировать номер" data-card="2200248803673697" onclick="copyCardNumber(this)">2200 2488 0367 3697</span></div>
+           
+            </div>
+            <p style="margin-top:20px; font-size:0.9rem; color:#888;">После перевода обязательно сообщите мне в Telegram или заполните форму связи (ниже) с указанием суммы и вашей просьбой. 
+<br>Суммы пожертвований указаны ориентировочно и не являются обязательными. Жертвуйте от души. Жертвуйте столько, сколько подскажет вам ваша душа. 
+</p>
+        </div>
+    </div>
+</section>
+
+<section id="form">
+    <div class="container">
+        <h2 class="reveal from-bottom">Обратиться за молитвой</h2>
+        <div class="form-wrap reveal from-bottom">
+            <form id="prayerForm" action="https://formspree.io/f/myeekkjp" method="POST">
+                <div class="form-group">
+                    <label for="name">Ваше имя (можно псевдоним)</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="contact">Telegram или email для связи</label>
+                    <input type="text" id="contact" name="contact" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Опишите вашу ситуацию и просьбу</label>
+                    <textarea id="message" name="message" required placeholder="Расскажите подробно, что беспокоит, за кого молиться, чего просите..."></textarea>
+                </div>
+                <button type="submit" class="btn" style="width:100%">Отправить просьбу</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<section id="faq">
+    <div class="container">
+        <h2 class="reveal from-bottom">Частые вопросы</h2>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Это законно? Вы не мошенник?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">
+                <p>Я создал и являюсь руководителем религиозной группы "КЕЛЕЙНЫЙ ХРАМ ЕВГЕНИЯ", о чём мною получены подтверждения Министерства Юстиции Российской Федерации.</p>
+                <p><strong>Подтверждения Минюста РФ</strong></p>
+
+<p>
+                    Алтайский край<br>
+                    Управление Минюста РФ по Алтайскому краю<br>
+                    29.10.2026 № 22/03-6337-26<br>
+                    Ведомственный № религиозной группы 2218010104
+                </p>
+
+                <p>
+                    Алтайский край<br>
+                    Управление Минюста РФ по Алтайскому краю<br>
+                    09.09.2024 № 22/03-4783<br>
+                   Ведомственный № религиозной группы 2218010084
+   </p>
+
+<p>
+Астраханская область<br>
+                    Управление Минюста РФ по Астраханской области<br>
+                    29.10.2026 № 30/03-4261/26<br>
+                    Ведомственный № религиозной группы 3018010048
+                </p>
+
+
+
+
+          <p>
+                    Астраханская область<br>
+                    Управление Минюста РФ по Астраханской области<br>
+                    02.09.2024 № 30/03-3250<br>
+                    Ведомственный № религиозной группы 3018010036
+                </p>
+
+                <p>
+                    Курганская область<br>
+                    Управление Минюста РФ по Курганской области<br>
+                    30.10.2026 № 45/03-3288/26<br>
+                    Ведомственный № религиозной группы 4518010096
+                </p>
+                    
+                      <p>
+                    Курганская область<br>
+                    Управление Минюста РФ по Курганской области<br>
+                    29.08.2024 № 45/03-2451<br>
+                    Ведомственный № религиозной группы 4518010089
+                </p>
+
+               <p>
+                    Ярославская область<br>
+                    Управление Минюста РФ по Ярославской области<br>
+                    02.11.2026 № 76/03-3752/26<br>
+                    Ведомственный № религиозной группы 7618010041
+                </p>
+               <p>
+                    Ярославская область<br>
+                    Управление Минюста РФ по Ярославской области<br>
+                    28.08.2024 № 76/03-3966<br>
+                    Ведомственный № религиозной группы 7618010032
+                </p>
+
+
+
+
+
+
+
+                <p>
+                    Иркутская область<br>
+                    Управление Минюста РФ по Иркутской области<br>
+                    16 августа 2024 № 38/03-7566<br>
+                    Ведомственный № религиозной группы 3818010190
+                </p>
+                <p>
+                    Республика Татарстан<br>
+                    Управление Минюста РФ по Республике Татарстан<br>
+                    22.08.2024 № 16/03-4788<br>
+                    Ведомственный № религиозной группы 1618010085
+                </p>
+                <p>
+                    Ханты-Мансийский автономный округ<br>
+                    Управление Минюста РФ по Ханты-Мансийскому АО<br>
+                    27.08.2024 № 86/03-3159<br>
+                    Ведомственный № религиозной группы 8618010071
+                </p>
+
+
+ 
+                <p>
+                    Томская область<br>
+                    Управление Минюста РФ по Томской области<br>
+                    30.08.2024 № 70/03-2749<br>
+                    Ведомственный № религиозной группы 7018010047
+                </p>
+
+            
+                <p>
+                    Пермский край<br>
+                    Управление Минюста РФ по Пермскому краю<br>
+                    02.09.2024 № 59/03-3875<br>
+                    Ведомственный № религиозной группы 5918010093
+                </p>
+                <p>
+                    Воронежская область<br>
+                    Управление Минюста РФ по Воронежской области<br>
+                    03.09.2024 № 36/03-5503<br>
+                    Ведомственный № религиозной группы 3618010091
+                </p>
+ 
+                
+                <p>
+                    Оренбургская область<br>
+                    Управление Минюста РФ по Оренбургской области<br>
+                    11.09.2024 № 56/03-3530<br>
+                    Ведомственный № религиозной группы 5618010111
+                </p>
+                <p>Пожертвования строго добровольны и являются поддержкой моего молитвенного служения. Это моя личная практика. Каждый решает сам, верить или нет. Я не гарантирую конкретных материальных результатов, только мою искреннюю молитву.</p>
+            </div></div>
+        </div>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Можно ли молиться за грешные дела?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Я молюсь не за совершение греха, а за человека. За его душу, за возможность исправления, за защиту от тяжелых последствий, за здравие и удачу. Господь сам решает, как ответить на молитву. Моя задача — молиться искренне, прилежно и от души.</div></div>
+        </div>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Сколько ждать результата?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Милосердие Господа не имеет фиксированных сроков. В любом случае Господь слышит и ведает. Всё в Его власти. Каждый случай индивидуален. Главное — ваше искреннее намерение и вера в то, что помощь придет.</div></div>
+        </div>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Что если не поможет?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Я молюсь за вас. Но помощь идёт от Бога. Но если вы чувствуете, что что-то пошло не так, напишите мне. Мы обсудим ситуацию. Иногда нужно больше времени или другой подход к молитве.</div></div>
+        </div>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Можно ли остаться анонимным?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Да. Многие предпочитают анонимность, особенно если речь о деликатных ситуациях. Вы можете использовать псевдоним. Мне важно содержание просьбы, а не ваше реальное имя. Конфиденциальность гарантирована.
+<br>
+Важно: имя нужно того, за кого молюсь конкретно. Имя, данное при крещении (аще крещен) либо имя по документам (аще не крещен). Фамилия и отчество не нужны. 
+</div></div>
+        </div>
+        
+        <div class="faq-item reveal from-bottom">
+            <div class="faq-q">Нужно ли быть верующим?<span class="faq-icon">+</span></div>
+            <div class="faq-a"><div class="faq-a-inner">Нет. Молитва доходит до Господа независимо от вашего вероисповедания или его отсутствия. Важно ваше искреннее желание получить помощь и готовность принять перемены. Я молюсь за всех, кто обращается, независимо от религиозных взглядов.</div></div>
+        </div>
+    </div>
+</section>
+
+<section id="quotes">
+    <div class="container">
+        <h2 class="reveal from-bottom">Священное писание о пожертвованиях и молитве</h2>
+        
+        <div class="quote-card reveal from-left">
+            <p class="quote-text">«Каждый уделяй по расположению сердца, не с огорчением и не с принуждением; ибо доброхотно дающего любит Бог.»</p>
+            <p class="quote-src">— 2 Коринфянам 9:7</p>
+        </div>
+        
+        <div class="quote-card reveal from-right">
+            <p class="quote-text">«Давайте, и дастся вам: мерою доброю, утоптанною, трясовою и переполненною отсыплют вам в лоно ваше; ибо, какою мерою мерите, такою же отмерится и вам.»</p>
+            <p class="quote-src">— Евангелие от Луки 6:38</p>
+        </div>
+        
+        <div class="quote-card reveal from-left">
+            <p class="quote-text">«Блаженнее давать, нежели принимать.»</p>
+            <p class="quote-src">— Деяния Апостолов 20:35</p>
+        </div>
+        
+        <div class="quote-card reveal from-right">
+            <p class="quote-text">«Приносите все десятины в дом хранилища, чтобы в доме Моем была пища, и хотя бы этим испытайте Меня, говорит Господь Саваоф: не открою ли для вас отверстий небесных и не изолью ли на вас благословения до избытка?»</p>
+            <p class="quote-src">— Малахия 3:10</p>
+        </div>
+        
+        <div class="quote-card reveal from-left">
+            <p class="quote-text">«Творящий милость бедному дает взаймы Господу, и Он воздаст ему за благодеяние его.»</p>
+            <p class="quote-src">— Притчи 19:17</p>
+        </div>
+        
+        <div class="quote-card reveal from-right">
+            <p class="quote-text">«Если исповедуем грехи наши, то Он, будучи верен и праведен, простит нам грехи наши и очистит нас от всякой неправды.»</p>
+            <p class="quote-src">— 1 Иоанна 1:9</p>
+        </div>
+        
+        <div class="quote-card reveal from-left">
+            <p class="quote-text">«Молитесь друг за друга, чтобы исцелиться: много может усиленная молитва праведного.»</p>
+            <p class="quote-src">— Иакова 5:16</p>
+        </div>
+        
+        <div class="quote-card reveal from-right">
+            <p class="quote-text">«Не судите, да не судимы будете; не осуждайте, да не осуждены будете; прощайте, и прощены будете.»</p>
+            <p class="quote-src">— Евангелие от Луки 6:37</p>
+        </div>
+    </div>
+</section>
+
+<section class="contacts-section" id="contacts">
+    <div class="container">
+        <h2 class="reveal from-bottom">Контакты</h2>
+        <p class="reveal from-bottom">Напишите мне напрямую. Отвечаю по возможности быстро. 
+<br>
+Всё общение строго конфиденциально с моей стороны.</p>
+        <div class="contact-links reveal from-bottom">
+            <a href="https://t.me/EvgeniiPrav" class="contact-link" target="_blank">Telegram</a>
+
+
+        <a href="https://m.vk.com/club226560429" class="contact-link" target="_blank">VK</a>
+
+
+           <a href="https://x.com/EvgeniiHram" class="contact-link" target="_blank">X (Twitter) </a>
+
+
+        <a href="https://wa.me/message/GEDYZ3IQQLGBM1" class="contact-link" target="_blank">WhatsApp </a>
+            <a href="mailto:EvgeniiHram@outlook.com" class="contact-link">Email</a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>2026 Келейный молитвенник Евгений. Личная духовная молитвенная практика.</p>
+        <p class="disclaimer">Данный сайт не является медицинской, юридической или психологической помощью. Результаты индивидуальны и зависят от множества факторов. Пожертвования добровольны и невозвратны. Я не несу ответственности за действия пользователей.</p>
+    </div>
+</footer>
+
+<button class="to-top" id="toTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<div class="modal-bg" id="modal">
+    <div class="modal-box">
+        <h3>Ваша просьба принята</h3>
+        <p>Спасибо за обращение. Я получил ваше сообщение и, при необходимости, свяжусь с вами в ближайшее время для уточнения деталей.
+<br>
+Благодарю за донат! 
+
+</p>
+        <button class="btn" onclick="document.getElementById('modal').classList.remove('open')">Закрыть</button>
+    </div>
+</div>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+        }
+    });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+window.addEventListener('scroll', () => {
+    document.getElementById('toTop').classList.toggle('show', window.scrollY > 400);
+});
+
+document.querySelectorAll('.faq-q').forEach(q => {
+    q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const answer = item.querySelector('.faq-a');
+        const inner = item.querySelector('.faq-a-inner');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item').forEach(i => {
+            i.classList.remove('open');
+            const a = i.querySelector('.faq-a');
+            if (a) a.style.maxHeight = '0';
+        });
+        if (!wasOpen) {
+            item.classList.add('open');
+            answer.style.maxHeight = (inner.scrollHeight + 40) + 'px';
+        }
+    });
+});
+
+document.getElementById('prayerForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    try {
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        });
+        if (response.ok) {
+            document.getElementById('modal').classList.add('open');
+            form.reset();
+        } else {
+            alert('Произошла ошибка при отправке. Пожалуйста, попробуйте ещё раз.');
+        }
+    } catch (err) {
+        alert('Произошла ошибка при отправке. Пожалуйста, попробуйте ещё раз.');
+    }
+});
+
+document.getElementById('modal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget) e.currentTarget.classList.remove('open');
+});
+
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        document.querySelector('.nav-links').classList.remove('open');
+    });
+});
+function copyCardNumber(el) {
+    if (el.dataset.copying) return;
+
+    const text = el.dataset.card || el.textContent.replace(/\D/g, '');
+    const original = el.textContent;
+    el.dataset.copying = '1';
+
+    const done = () => {
+        el.textContent = 'Скопировано';
+        setTimeout(() => {
+            el.textContent = original;
+            delete el.dataset.copying;
+        }, 1500);
+    };
+
+    const fallbackCopy = () => {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        ta.setSelectionRange(0, ta.value.length);
+
+        try {
+            document.execCommand('copy');
+            done();
+        } catch (e) {
+            alert('Не удалось скопировать номер. Выделите его вручную.');
+            delete el.dataset.copying;
+        } finally {
+            document.body.removeChild(ta);
+        }
+    };
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done).catch(fallbackCopy);
+    } else {
+        fallbackCopy();
+    }
+}
+</script>
+
+</body>
+</html>
