@@ -143,6 +143,19 @@
         .contact-link { display: inline-block; padding: 14px 30px; border: 1px solid var(--border); font-family: var(--font-sans); font-size: 0.9rem; transition: 0.3s; }
         .contact-link:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
+        .qr-wrap { margin-top: 35px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+        .qr-link { display: inline-block; }
+        .qr-wrap img {
+            width: 220px;
+            max-width: 70vw;
+            padding: 10px;
+            background: #fff;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .qr-wrap img:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .qr-caption { font-family: var(--font-sans); font-size: 0.9rem; color: var(--text-secondary); margin: 0; }
+
         footer { background: var(--accent); color: #999; padding: 40px 0; text-align: center; font-family: var(--font-sans); font-size: 0.8rem; }
         .disclaimer { max-width: 600px; margin: 15px auto 0; color: #666; line-height: 1.6; }
 
@@ -331,7 +344,7 @@
         <h2 class="reveal from-bottom">Частые вопросы</h2>
         
         <div class="faq-item reveal from-bottom">
-            <div class="faq-q">Это законно? Вы не мошенник?<span class="faq-icon">+</span></div>
+            <div class="faq-q">Это законно? Вас можно доверять?<span class="faq-icon">+</span></div>
             <div class="faq-a"><div class="faq-a-inner">
                 <p>Я создал и являюсь руководителем религиозной группы "КЕЛЕЙНЫЙ ХРАМ ЕВГЕНИЯ", о чём мною получены подтверждения Министерства Юстиции Российской Федерации.</p>
                 <p><strong>Подтверждения Минюста РФ</strong></p>
@@ -411,6 +424,30 @@
                     Управление Минюста РФ по Республике Татарстан<br>
                     22.08.2024 № 16/03-4788<br>
                     Ведомственный № религиозной группы 1618010085
+                </p>
+                <p>
+                    Республика Татарстан<br>
+                    Управление Минюста РФ по Республике Татарстан<br>
+                    11.11.2026 № 16/03-7157/26<br>
+                    Ведомственный № религиозной группы 1618010104
+                </p>
+                <p>
+                    Новосибирская область<br>
+                    Управление Минюста РФ по Новосибирской области<br>
+                    12.11.2026 № 54/05-14997/26<br>
+                    Ведомственный № религиозной группы 5418010194
+                </p>
+                <p>
+                    Смоленская область<br>
+                    Управление Минюста РФ по Смоленской области<br>
+                    13.11.2026 № 67/05-4304/26<br>
+                    Ведомственный № религиозной группы 6718010046
+                </p>
+                <p>
+                    Вологодская область<br>
+                    Управление Минюста РФ по Вологодской области<br>
+                    06.11.2026 № 35/05-3962/26<br>
+                    Ведомственный № религиозной группы 3518010048
                 </p>
                 <p>
                     Ханты-Мансийский автономный округ<br>
@@ -546,7 +583,14 @@
 
 
         <a href="https://wa.me/message/GEDYZ3IQQLGBM1" class="contact-link" target="_blank">WhatsApp </a>
-            <a href="mailto:EvgeniiHram@outlook.com" class="contact-link">Email</a>
+            <a href="mailto:EvgeniiPrav@outlook.comm" class="contact-link">Email</a>
+        </div>
+
+        <div class="qr-wrap reveal from-bottom">
+            <a href="qr.png" target="_blank" rel="noopener" class="qr-link">
+                <img src="qr.png" alt="QR-код для связи с келейным молитвенником Евгением" loading="lazy">
+            </a>
+            <p class="qr-caption">Нажмите на QR-код, чтобы открыть его полностью</p>
         </div>
     </div>
 </section>
